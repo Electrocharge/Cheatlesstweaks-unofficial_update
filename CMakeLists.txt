@@ -32,6 +32,8 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(preloader_android)
 
+find_library(ANDROID_LOG_LIB log REQUIRED)
+
 add_library(${MOD_LIBRARY_NAME} SHARED
     src/main.cpp
     src/mod/CommandCheatsBypass.cpp
@@ -41,7 +43,7 @@ target_include_directories(${MOD_LIBRARY_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-target_link_libraries(${MOD_LIBRARY_NAME} PRIVATE preloader)
+target_link_libraries(${MOD_LIBRARY_NAME} PRIVATE preloader fmt::fmt ${ANDROID_LOG_LIB})
 
 target_compile_definitions(${MOD_LIBRARY_NAME} PRIVATE
     MOD_ID="${MOD_ID}"
